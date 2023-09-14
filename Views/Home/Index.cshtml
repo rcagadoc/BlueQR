@@ -1,0 +1,54 @@
+﻿@model BlueQR.Models.QRModel;
+@{
+    ViewData["Title"] = "Blue QR";  
+
+}
+<div class="py-2">
+<div class="container px-5">
+    <div class="row gx-5 justify-content-center">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="my-5">
+                    <form asp-action="Index">
+                        <!--  Website  -->
+                        <div class="row mt-5 hideDiv" id="DIV1">
+                            <div>
+                                <label class="mb-3 lead">Enter a website URL:</label>
+                                <input autocomplete="off" type="url" asp-for="WebsiteURL" class="form-control" />
+                                @Html.ValidationMessageFor(m => m.WebsiteURL, "", new { @class = "mt-5 text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div>
+                                <button type="submit" class="btn btn-primary">Generate</button>
+                                <button type="reset" class="btn btn-secondary" id="resetBtn">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    @if (!string.IsNullOrEmpty(Model.QRImageURL))
+                    {
+                        <div class="row mt-2" id="qrCodeImage">
+                            <div>
+                                <img height="250" width="250" src="@Model.QRImageURL" />
+                            </div>
+                        </div>
+                    }
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+
+
+@section Scripts {
+    <script>
+    $(document).ready(function(){
+        $("#resetBtn").on("click",function(event){
+            window.location.href = "/";
+        });
+    });
+    </script>
+}
